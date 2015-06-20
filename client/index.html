@@ -174,6 +174,283 @@
       <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
+     <script>         
+
+         function login(callback) {
+          //FB.login(callback);
+          FB.login(callback);
+        }
+        function loginCallback(response) {
+          console.log('loginCallback',response);
+          if(response.status != 'connected') {
+            top.location.href = 'https://www.facebook.com/appcenter/YOUR_APP_NAMESPACE';
+          }else{
+             iniciarCubo();
+          }
+        }
+        function onStatusChange(response) {
+          if( response.status != 'connected' ) {
+            login(loginCallback);
+          } else {
+            iniciarCubo();
+          }
+        }
+
+        function onAuthResponseChange(response) {
+          console.log('onAuthResponseChange', response);
+        }
+
+
+        function iniciarCubo(){
+
+             var svgData = {
+            "front" :
+            {
+              "strokepath" :
+              [
+                {
+                    "path": "M 3 331.809 L 3 0.00001",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 328 -0.99999 L 330 332.809",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 330.19101 L 328.90448 329.19101",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 2.19101 L 325.90448 3.19101",
+                    "duration": 4000
+               }
+              ],
+              "dimensions" : { "width": 331, "height":331 }
+            }
+          };
+
+           var svgDataTop = {
+            "top" :
+            {
+              "strokepath" :
+              [
+                {
+                    "path": "M 3 331.809 L 3 0.00001",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 328 -0.99999 L 330 332.809",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 330.19101 L 328.90448 329.19101",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 2.19101 L 325.90448 3.19101",
+                    "duration": 4000
+               }
+              ],
+              "dimensions" : { "width": 331, "height":331 }
+            }
+          };
+
+           var svgDataLeft = {
+            "left" :
+            {
+              "strokepath" :
+              [
+                {
+                    "path": "M 3 331.809 L 3 0.00001",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 328 -0.99999 L 330 332.809",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 330.19101 L 328.90448 329.19101",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 2.19101 L 325.90448 3.19101",
+                    "duration": 4000
+               }
+              ],
+              "dimensions" : { "width": 331, "height":331 }
+            }
+          };
+
+           var svgDataRight = {
+            "right" :
+            {
+              "strokepath" :
+              [
+                {
+                    "path": "M 3 331.809 L 3 0.00001",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 328 -0.99999 L 330 332.809",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 330.19101 L 328.90448 329.19101",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 2.19101 L 325.90448 3.19101",
+                    "duration": 4000
+               }
+              ],
+              "dimensions" : { "width": 331, "height":331 }
+            }
+          };
+
+           var svgDataBack = {
+            "back" :
+            {
+              "strokepath" :
+              [
+                {
+                    "path": "M 3 331.809 L 3 0.00001",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 328 -0.99999 L 330 332.809",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 330.19101 L 328.90448 329.19101",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 2.19101 L 325.90448 3.19101",
+                    "duration": 4000
+               }
+              ],
+              "dimensions" : { "width": 331, "height":331 }
+            }
+          };
+
+           var svgDataBottom = {
+            "bottom" :
+            {
+              "strokepath" :
+              [
+                {
+                    "path": "M 3 331.809 L 3 0.00001",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 328 -0.99999 L 330 332.809",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 330.19101 L 328.90448 329.19101",
+                    "duration": 4000
+                },
+                {
+                    "path": "M 3.90448 2.19101 L 325.90448 3.19101",
+                    "duration": 4000
+               }
+              ],
+              "dimensions" : { "width": 331, "height":331 }
+            }
+          };
+
+          window.onload = function () {
+              angular.element('#abc').scope().inicioSound();
+              angular.element('#abc').scope().$apply(); 
+              $('#abc').show();    
+
+               $('#front').lazylinepainter({
+                  'svgData' : svgData,
+                  'strokeWidth':7,
+                  'strokeColor':'#4C0255'
+                });
+              var state = 'paint';
+              $('#front').lazylinepainter(state);             
+
+              $('#top').lazylinepainter({
+                'svgData' : svgDataTop,
+                'strokeWidth':7,
+                'strokeColor':'#4C0255'
+              });
+            var state = 'paint';
+             $('#top').lazylinepainter(state);
+              $('#left').lazylinepainter({
+                'svgData' : svgDataLeft,
+                'strokeWidth':7,
+                'strokeColor':'#4C0255'
+              });
+            var state = 'paint';
+             $('#left').lazylinepainter(state);
+
+
+             $('#right').lazylinepainter({
+                'svgData' : svgDataRight,
+                'strokeWidth':7,
+                'strokeColor':'#4C0255'
+              });
+            var state = 'paint';
+             $('#right').lazylinepainter(state);
+
+
+             $('#back').lazylinepainter({
+                'svgData' : svgDataBack,
+                'strokeWidth':7,
+                'strokeColor':'#4C0255'              
+              });
+            var state = 'paint';
+             $('#back').lazylinepainter(state);
+
+             $('#bottom').lazylinepainter({
+                'svgData' : svgDataBottom,
+                'strokeWidth':7,
+                'strokeColor':'#4C0255',
+                'onComplete' : function(){
+                 // $("#front_content").show();// se le puede poner un pequeño delay
+                 
+                 // setTimeout(function(){
+                    //$('figure').css('background-color',' #64a43a');
+                    //$('figure').css('border',' solid 2px white');
+                    $('.tales').css('opacity',1);
+                         //erase
+                     $('#bottom').lazylinepainter('erase');  
+                     $('#right').lazylinepainter('erase');
+                     $('#front').lazylinepainter('erase');    
+                     $('#top').lazylinepainter('erase');    
+                     $('#back').lazylinepainter('erase'); 
+                     $('#left').lazylinepainter('erase');    
+
+                     $("#bini").show();
+                     $("#rini").show();
+                     $("#lini").show();
+                     $("#baini").show();
+                     $("#inicial_buttons").fadeIn();
+
+                    angular.element('#abc').scope().initialShow();
+                    angular.element('#abc').scope().$apply();  
+
+
+                    FB.login(function(response) {
+                         console.log("Segundo Logeeo");
+                         }, {
+                           scope: 'publish_actions', 
+                           return_scopes: true
+                         });
+                  //  }, 1000);                 
+                }
+              });
+            var state = 'paint';
+             $('#bottom').lazylinepainter(state);           
+            }                  
+
+        }
+
+
+</script>
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
