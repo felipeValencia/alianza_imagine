@@ -32,19 +32,19 @@
          <span class="icon-left navicons ll hvr-grow"  ng-click="ButtonClicked($event,'left')" ng-audio-hover="../../assets/sounds/click.mp3"></span>
          <span class="icon-right navicons rr hvr-grow" ng-click="ButtonClicked($event,'right')" ng-audio-hover="../../assets/sounds/click.mp3"></span>
       </div>
-
+      <!--
         <footer class="footer">
          <img src='../../assets/images/logo.png' />
          <div class="fb-like" data-href="https://www.facebook.com/LaAlianzaColombia" data-width="240" data-layout="standard" data-action="like" data-show-faces="true" data-share="false"></div>
          <fb:login-button autologoutlink="true" scope="publish_actions,publish_stream"></fb:login-button>
-        <!-- <a class="twitter-follow-button"
+        <a class="twitter-follow-button"
             href="https://twitter.com/LaAlianzaCo"
             data-size="large">
           Follow @TwitterDev</a>
           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
          <span class="ig-follow" data-id="1149623392" data-handle="laalianzaco" data-count="true" data-size="medium" data-username="false"></span>
-          <script>(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src="//x.instagramfollowbutton.com/follow.js";s.parentNode.insertBefore(g,s);}(document,"script"));</script>-->
-        </footer>
+          <script>(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src="//x.instagramfollowbutton.com/follow.js";s.parentNode.insertBefore(g,s);}(document,"script"));</script>
+        </footer>-->
 
       <div class="cube" ng-class="{ 'front-mov': front, 'left-mov': left, 'back-mov': back, 'right-mov': right , 'bottom-mov': bottom , 'make-animation': make }">
 
@@ -77,10 +77,9 @@
          <img src='../../assets/images/DiamantTextureV.png' class='tales'>      
           <div class="col-md-12 hidden_class" id='lini' >    
              <img class='img_four' ng-src="../../assets/images/backs/{{backGround}}" /> 
-              <label class='special_label_four' style='color:{{color}}'>{{text}}</label>
-              <fb:login-button scope="publish_actions,publish_stream"></fb:login-button>
+              <label class='special_label_four' style='color:{{color}}'>{{text}}</label>            
 
-              <!-- <canvas id="tempCanvas" width="230" height="230"></canvas>
+              <!-- <fb:login-button scope="publish_actions,publish_stream"></fb:login-button> <canvas id="tempCanvas" width="230" height="230"></canvas>
                 <div id="canvasDiv"></div>-->           
                 <!--<h2 class='h3_modal'>Regalanos un Like</h2>
             <div class="fb-like" data-href="https://www.facebook.com/LaAlianzaColombia" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>-->
@@ -124,6 +123,19 @@
             <button class="btn btn-warning hvr-grow" ng-click="cancel()" >Volver</button>
         </div>
     </script>
+    <script type="text/ng-template" id="modal_dialog.html">
+        <div class="modal-body body-dialog">
+          <div class="modal-dialog">
+           <h1 class='h1_dialog'>
+              {{message}}
+              </h1>
+             <span class="glyphicon {{ico}} dialog_ico" aria-hidden="true"></span>            
+           </div>
+        </div>
+        <div class="modal-footer footer-dialog">          
+            <button class="btn btn-primary hvr-grow" ng-click="ok()">Aceptar</button>
+        </div>
+    </script>
 
 <script>
     (function( $ ){     
@@ -138,12 +150,11 @@
                     version: 'v2.3'
                   });
 
-    FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);
-    FB.Event.subscribe('auth.statusChange', onStatusChange);
-
-    //for local testing propouse
-    var response={status:'connected'};
-    onStatusChange(response);
+    //FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);
+    FB.Event.subscribe('auth.statusChange', onStatusChange);  
+    //for local testing propouse    
+   // var response={status:'connected',authResponse:{accessToken:'ABC'}};
+   // loginCallback(response);
 
      $("#cf7_controls").on('click', 'img', function() {
         $("#cf7 img").removeClass("opaque");

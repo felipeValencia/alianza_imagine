@@ -15,11 +15,11 @@ angular.module('alianzaImagineApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
-    $httpProvider.interceptors.push('authInterceptor');
+    //$httpProvider.interceptors.push('authInterceptor');
     //$facebookProvider.setAppId('764262530321266').setPermissions(['email','user_friends']);
   })
 
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+  /*.factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {
       // Add authorization token to headers
       request: function (config) {
@@ -43,9 +43,9 @@ angular.module('alianzaImagineApp', [
         }
       }
     };
-  })
+  })*/
 
-  .run(function ($rootScope, $location, Auth) {
+  /*.run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
@@ -53,7 +53,7 @@ angular.module('alianzaImagineApp', [
           $location.path('/login');
         }
       });
-    });
+    });*/
 
     /*(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -70,4 +70,4 @@ angular.module('alianzaImagineApp', [
     });*/
 
 
-  });
+  //});

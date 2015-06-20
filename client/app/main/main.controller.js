@@ -2,35 +2,7 @@
 
 angular.module('alianzaImagineApp')
   .controller('MainCtrl', function ($scope, $http, ngAudio,$modal,$log) {
-    /*$scope.awesomeThings = [];
-
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });
-
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
-        return;
-      }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
-    };
-
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
-    };*/
-
-
-    /*$scope.$on('fb.auth.authResponseChange', function() {
-      $scope.status = $facebook.isConnected();
-      if($scope.status) {
-        $facebook.api('/me').then(function(user) {
-          $scope.user = user;
-        });
-      }
-    });*/
-    // $facebook.login();
-
+ 
     this.front = false;
     this.right = false;
     this.left = false;
@@ -164,6 +136,26 @@ angular.module('alianzaImagineApp')
       });
     };
 
+   $scope.open_dialog = function (texto,ico) {     
+      var modalDialog = $modal.open({
+        animation: true,
+        templateUrl: 'modal_dialog.html',
+        controller: 'ModalDialogCtrl',
+        windowClass: 'mi_modal_dialog',          
+        resolve: {
+          datos: function () {
+            return {'texto':texto,'ico':ico};
+          }
+        }
+      });
+
+      modalDialog.result.then(function () {
+        //$scope.selected = selectedItem;
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
 });
 
 
@@ -202,42 +194,6 @@ angular.module('alianzaImagineApp').controller('ModalInstanceCtrl', function ($s
     };
   };
 
-  /*
-  $scope.postCanvasToFacebook =  function () {
-      var data = canvas.toDataURL("image/png");
-      var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
-      var decodedPng = Base64Binary.decode(encodedPng);     
-      $scope.postImageToFacebook(response.authResponse.accessToken, "heroesgenerator", "image/png", decodedPng, "www.heroesgenerator.com");
-  };
-
-  $scope.postImageToFacebook = function ( authToken, filename, mimeType, imageData, message ) {
-      // this is the multipart/form-data boundary we'll use
-      var boundary = '----ThisIsTheBoundary1234567890';   
-      // let's encode our image file, which is contained in the var
-      var formData = '--' + boundary + '\r\n'
-      formData += 'Content-Disposition: form-data; name="source"; filename="' + filename + '"\r\n';
-      formData += 'Content-Type: ' + mimeType + '\r\n\r\n';
-      for ( var i = 0; i < imageData.length; ++i )
-      {
-          formData += String.fromCharCode( imageData[ i ] & 0xff );
-      }
-      formData += '\r\n';
-      formData += '--' + boundary + '\r\n';
-      formData += 'Content-Disposition: form-data; name="message"\r\n\r\n';
-      formData += message + '\r\n'
-      formData += '--' + boundary + '--\r\n';
-      
-      var xhr = new XMLHttpRequest();
-      xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken, true );
-      xhr.onload = xhr.onerror = function() {
-          console.log( xhr.responseText );
-      };
-      xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
-      xhr.sendAsBinary( formData );
-  };*/
-
- 
-
   $scope.ok = function () {
     $modalInstance.close();
   };
@@ -245,4 +201,16 @@ angular.module('alianzaImagineApp').controller('ModalInstanceCtrl', function ($s
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+});
+
+
+angular.module('alianzaImagineApp').controller('ModalDialogCtrl', function ($scope, $modalInstance, datos) {
+
+  $scope.message = datos.texto;
+  $scope.ico = datos.ico;
+
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
+
 });

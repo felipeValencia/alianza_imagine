@@ -887,6 +887,16 @@ p#cf7_controls {
   padding: 0px; 
 }
 
+.modal {
+  text-align: center;
+}
+
+.modal:before {
+  display: inline-block;
+  vertical-align: middle;
+  content: " ";
+  height: 100%;
+}
 
 .modal-footer{
   background-color: #4C0255;
@@ -929,3 +939,29 @@ p#cf7_controls {
   color: #4C0255;
 }
 
+
+
+.dialog_ico{
+  color: white;
+  font-size: 100px;
+}
+
+.body-dialog{
+  background: #4C0255;
+}
+
+.modal-dialog {
+  position: relative;
+  padding: 0px; 
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.h1_dialog{
+  color: white;
+}
+
+.footer-dialog{
+  background-color: white;
+}

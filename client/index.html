@@ -101,27 +101,35 @@
                 }
               }
 
-        function postCanvasToFacebook() {
-          alert('aaaa');
+        function postCanvasToFacebook() {           
+              
           var canvas = document.getElementById('tempCanvas');
-          var data = canvas.toDataURL("image/png");
+          //var data = canvas.toDataURL("image/png");
+          var data = canvas.toDataURL("image/jpeg", 1);
           var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
-          var decodedPng = Base64Binary.decode(encodedPng);
-          console.log("lalalal");
-          FB.getLoginStatus(function(response) {
-            console.log(response);
-            if (response.status === "connected") {  
-            postImageToFacebook(response.authResponse.accessToken, "heroesgenerator", "image/png", decodedPng, "www.heroesgenerator.com");
-            } else if (response.status === "not_authorized") {
-             FB.login(function(response) {
-              postImageToFacebook(response.authResponse.accessToken, "heroesgenerator", "image/png", decodedPng, "www.heroesgenerator.com");
-             }, {scope: "publish_stream"});
-            } else {
-             FB.login(function(response)  { 
-              postImageToFacebook(response.authResponse.accessToken, "heroesgenerator", "image/png", decodedPng, "www.heroesgenerator.com");
-             }, {scope: "publish_stream"});
-            }
-           });
+          var decodedPng = Base64Binary.decode(encodedPng);  
+
+          FB.api('/me/permissions/publish_actions', function(resp) {
+            console.log("Response Permissions");
+            console.log(resp);
+                if (resp.data[0].status === "declined") {
+                    (function( $ ){$(document).ready(function(){   
+                       angular.element('#abc').scope().open_dialog('Lo Sentimos, para Compartir Primero Debes Aceptar Los Permisos de Publicacion','glyphicon-thumbs-down');
+                       angular.element('#abc').scope().$apply();  
+                     });})( jQuery );
+                     FB.login(function(response) {
+                         console.log("Tercer Logeeo");
+                         }, {
+                           scope: 'publish_actions', 
+                           return_scopes: true
+                         });
+
+                } else {
+                   postImageToFacebook(token, "reconexion2015", "image/jpeg", decodedPng, "ReConexion2015 Crea tu Imagen");
+                   angular.element('#abc').scope().open_dialog('!Exito al Compartir Tu Imagen de ReConexion 2015! Vistia tu Perfil','glyphicon-thumbs-up');
+                   angular.element('#abc').scope().$apply();
+                }
+            });    
 
         };
 
@@ -174,10 +182,13 @@
       <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
-     <script>         
+     <script>  
+
+     var token;       
 
          function login(callback) {
           //FB.login(callback);
+          console.log('Login');
           FB.login(callback);
         }
         function loginCallback(response) {
@@ -185,23 +196,30 @@
           if(response.status != 'connected') {
             top.location.href = 'https://www.facebook.com/appcenter/YOUR_APP_NAMESPACE';
           }else{
-             iniciarCubo();
+            token=response.authResponse.accessToken;
+            console.log('loginCallback If Cubo');            
+            iniciarCubo();          
           }
         }
         function onStatusChange(response) {
+          console.log('onStatusChange',response);
           if( response.status != 'connected' ) {
             login(loginCallback);
           } else {
-            iniciarCubo();
+            token=response.authResponse.accessToken;
+            console.log('onStatusChange If Cubo');
+            iniciarCubo();           
           }
         }
 
-        function onAuthResponseChange(response) {
+       /* function onAuthResponseChange(response) {
           console.log('onAuthResponseChange', response);
-        }
+        }*/
 
 
         function iniciarCubo(){
+
+          console.log('Cubo Iniciando...');
 
              var svgData = {
             "front" :
@@ -359,9 +377,15 @@
             }
           };
 
-          window.onload = function () {
-              angular.element('#abc').scope().inicioSound();
-              angular.element('#abc').scope().$apply(); 
+    
+              console.log('Cubo Iniciando... Paso 2');
+               (function( $ ){$(document).ready(function(){   
+                  window.onload = function(){
+                    angular.element('#abc').scope().inicioSound();
+                    angular.element('#abc').scope().$apply(); 
+                   }                     
+               });})( jQuery );
+             
               $('#abc').show();    
 
                $('#front').lazylinepainter({
@@ -445,7 +469,7 @@
               });
             var state = 'paint';
              $('#bottom').lazylinepainter(state);           
-            }                  
+                     
 
         }
 
