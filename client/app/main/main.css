@@ -764,11 +764,13 @@ transition: opacity 1s;
 p#cf7_controls {
   text-align:center;
   position: fixed;
-  top: 230px;
+  top: 220px;
+  left: -5px;
 }
 #cf7_controls img {
   cursor:pointer;
-  width: 50px;  
+  width: 35px;  
+  border: 2px solid #4C0255;
 }
 #cf7 {
   position:relative;
@@ -814,7 +816,7 @@ p#cf7_controls {
 
 .special_label{
   position: fixed;
-  top: 150px;
+  top: 151px;
   left: 100px;
   text-align: left;
   width: 170px;
@@ -844,7 +846,7 @@ p#cf7_controls {
 
 .special_label_four{
   position: fixed;
-  top: 150px;
+  top: 151px;
   left: 80px;
   width: 170px;
   background-color: transparent;
@@ -964,4 +966,9 @@ p#cf7_controls {
 
 .footer-dialog{
   background-color: white;
+}
+
+
+.new_top{
+  top:156px !important;
 }

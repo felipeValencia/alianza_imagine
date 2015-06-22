@@ -52,7 +52,7 @@
          <img src='../../assets/images/DiamantTextureV.png' class='tales'>        
           <div class="col-md-12 hidden_class" align='center'  id='baini' >    
            <img class='img_ter' ng-src="../../assets/images/backs/{{backGround}}" /> 
-            <label class='special_label label_pad' style='color:{{color}}'>{{text}}</label>
+            <label class='special_label' id='label_pad1' style='color:{{color}}'>{{text}}</label>
              <div class="input-group special_color_picker">  
                <span class="input-group-addon"><span class="glyphicon glyphicon-tint" style='color:{{color}}'></span></span>
               <input  colorpicker type="text"  ng-model="color" class="form-control">
@@ -77,7 +77,7 @@
          <img src='../../assets/images/DiamantTextureV.png' class='tales'>      
           <div class="col-md-12 hidden_class" id='lini' >    
              <img class='img_four' ng-src="../../assets/images/backs/{{backGround}}" /> 
-              <label class='special_label_four label_pad' style='color:{{color}}'>{{text}}</label>            
+              <label class='special_label_four' id='label_pad2' style='color:{{color}}'>{{text}}</label>            
 
               <!-- <fb:login-button scope="publish_actions,publish_stream"></fb:login-button> <canvas id="tempCanvas" width="230" height="230"></canvas>
                 <div id="canvasDiv"></div>-->           
@@ -96,13 +96,31 @@
                 <img src="../../assets/images/backs/3.png" />
                 <img src="../../assets/images/backs/4.png" />
                 <img src="../../assets/images/backs/5.png" />
+                <img src="../../assets/images/backs/6.png" />
+                <img src="../../assets/images/backs/7.png" />
+                <img src="../../assets/images/backs/8.png" />
+                <img src="../../assets/images/backs/9.png" />
+                <img src="../../assets/images/backs/10.png" />
+                <img src="../../assets/images/backs/11.png" />
+                <img src="../../assets/images/backs/12.png" />
+                <img src="../../assets/images/backs/13.png" />
+                <img src="../../assets/images/backs/14.png" />
               </div>
-              <p id="cf7_controls">         
+              <p id="cf7_controls" align='center'>         
                 <img class="selected hvr-grow" ng-click="RegistroSelected($event,'1.png')" src="../../assets/images/backs/1.png" />
                 <img class='hvr-grow' ng-click="RegistroSelected($event,'2.png')" src="../../assets/images/backs/2.png" />
                 <img class='hvr-grow' ng-click="RegistroSelected($event,'3.png')" src="../../assets/images/backs/3.png" />
                 <img class='hvr-grow' ng-click="RegistroSelected($event,'4.png')" src="../../assets/images/backs/4.png" />
                 <img class='hvr-grow' ng-click="RegistroSelected($event,'5.png')" src="../../assets/images/backs/5.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'6.png')" src="../../assets/images/backs/6.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'7.png')" src="../../assets/images/backs/7.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'8.png')" src="../../assets/images/backs/8.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'9.png')" src="../../assets/images/backs/9.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'10.png')" src="../../assets/images/backs/10.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'11.png')" src="../../assets/images/backs/11.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'12.png')" src="../../assets/images/backs/12.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'13.png')" src="../../assets/images/backs/13.png" />
+                <img class='hvr-grow' ng-click="RegistroSelected($event,'14.png')" src="../../assets/images/backs/14.png" />
               </p>
             </div>      
         </figure>
@@ -156,14 +174,14 @@
       if( nav.indexOf('Windows') <= 0){ //which is Mac or Linux
         console.log('Linux or Mac');
         $('.label_pad_input').css('top','182px');
-        $('.label_pad').css('top','156px');
-        
-      }
+        $('#label_pad1').addClass('new_top');
+        $('#label_pad2').addClass('new_top');        
+     }
 
     //FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);
     FB.Event.subscribe('auth.statusChange', onStatusChange);  
     //for local testing propouse    
-   // var response={status:'connected',authResponse:{accessToken:'ABC'}};
+    //var response={status:'connected',authResponse:{accessToken:'ABC'}};
     //loginCallback(response);
 
      $("#cf7_controls").on('click', 'img', function() {

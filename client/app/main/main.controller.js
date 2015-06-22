@@ -23,12 +23,12 @@ angular.module('alianzaImagineApp')
    var texts = ['!Es el momento de Reconectarnos para intensificar el mensaje de verdad! \nCrea tu propia definición de ReConexión y ayúdanos a Renovar lo establecido.',
                   'Escoge tu fondo favorito',
                   'Personaliza el color de la letra',
-                  '!Ya casi esta lista tu imagen de ReConexion¡ Presiona la tuerca para iniciar la ReConstrucción'];
+                  '¡Ya casi esta lista tu imagen de ReConexión! Presiona la tuerca para iniciar la ReConstrucción'];
 
 
     var currentPaso=0;
-    var slide = ngAudio.load('../../assets/sounds/giro.mp3'); // returns NgAudioObject
-    //var sound = ngAudio.load('../../assets/sounds/begin.mp3'); // returns NgAudioObject
+    var slide = ngAudio.load('../../assets/sounds/slide.mp3'); // returns NgAudioObject
+    var sound = ngAudio.load('../../assets/sounds/begin.mp3'); // returns NgAudioObject
 
     $scope.ButtonClicked = function($event,classSel) {    
      
@@ -95,7 +95,7 @@ angular.module('alianzaImagineApp')
     };
 
     $scope.inicioSound = function(){    
-      //sound.play();
+      sound.play();
     };
 
     $scope.initialShow = function(){
