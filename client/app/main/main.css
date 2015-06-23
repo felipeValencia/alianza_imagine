@@ -296,20 +296,20 @@ svg {
 
 
 .cube.front-mov{
-  /*-webkit-transition: all 4s ease;
-  -moz-transition: all 4s ease;
-  -o-transition: all 4s ease;
-  transition: all 4s ease;
+  /*-webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  transition: all 2s ease;
   -webkit-transform: rotateY(-90deg);
   -moz-transform: rotateY(-90deg);
   -ms-transform: rotateY(-90deg);
   -o-transform: rotateY(-90deg);
   transform: rotateY(-90deg); */
 
-  -webkit-transition: all 4s ease;
-  -moz-transition: all 4s ease;
-  -o-transition: all 4s ease;
-  transition: all 4s ease;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  transition: all 2s ease;
   -webkit-transform: translateY(300px) translateZ(-300px) rotateX(90deg);
   -moz-transform: translateY(300px) translateZ(-300px) rotateX(90deg);
   -ms-transform: translateY(300px) translateZ(-300px) rotateX(90deg);
@@ -318,10 +318,10 @@ svg {
 } 
 
 .cube.bottom-mov{
- -webkit-transition: all 4s ease;
-  -moz-transition: all 4s ease;
-  -o-transition: all 4s ease;
-  transition: all 4s ease;
+ -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  transition: all 2s ease;
   -webkit-transform: rotateY(-90deg);
   -moz-transform: rotateY(-90deg);
   -ms-transform: rotateY(-90deg);
@@ -332,10 +332,10 @@ svg {
 
 
 .cube.left-mov{
-  -webkit-transition: all 6s ease;
-  -moz-transition: all 6s ease;
-  -o-transition: all 6s ease;
-  transition: all 6s ease;
+  -webkit-transition: all 4s ease;
+  -moz-transition: all 4s ease;
+  -o-transition: all 4s ease;
+  transition: all 4s ease;
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   -ms-transform: rotateY(0deg);
@@ -344,10 +344,10 @@ svg {
 }
 
 .cube.back-mov{
-  -webkit-transition: all 4s ease;
-  -moz-transition: all 4s ease;
-  -o-transition: all 4s ease;
-  transition: all 4s ease;
+  -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  transition: all 2s ease;
   -webkit-transform: rotateY(-270deg);
   -moz-transform: rotateY(-270deg);
   -ms-transform: rotateY(-270deg);
@@ -356,10 +356,10 @@ svg {
 }
 
 .cube.right-mov{
-   -webkit-transition: all 4s ease;
-  -moz-transition: all 4s ease;
-  -o-transition: all 4s ease;
-  transition: all 4s ease;
+   -webkit-transition: all 2s ease;
+  -moz-transition: all 2s ease;
+  -o-transition: all 2s ease;
+  transition: all 2s ease;
   -webkit-transform: rotateY(-180deg);
   -moz-transform: rotateY(-180deg);
   -ms-transform: rotateY(-180deg);
@@ -368,10 +368,10 @@ svg {
 }
 /*
 .cube.make-animation{
-  -webkit-transition: all 14s ease;
-  -moz-transition: all 14s ease;
-  -o-transition: all 14s ease;
-  transition: all 14s ease;
+  -webkit-transition: all 12s ease;
+  -moz-transition: all 12s ease;
+  -o-transition: all 12s ease;
+  transition: all 12s ease;
   -webkit-transform: translateY(180px) translateZ(800px) rotateX(270deg);
   -moz-transform: translateY(180px) translateZ(800px) rotateX(270deg);
   -ms-transform: translateY(180px) translateZ(800px) rotateX(270deg);
@@ -967,6 +967,16 @@ p#cf7_controls {
 .footer-dialog{
   background-color: white;
 }
+
+
+.special_input_dialog{
+  width: 300px;
+  background-color: white;
+  border: 1px solid white; 
+  font-size: 20px;
+  color: #4C0255;
+}
+
 
 
 .new_top{

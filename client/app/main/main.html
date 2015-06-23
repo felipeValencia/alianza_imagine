@@ -1,6 +1,7 @@
 
 
-<div id='abc' style='display:none' ng-controller='MainCtrl'>
+<div id='contro' ng-controller='MainCtrl' >
+<div id='abc' style='display:none'>
   <div class='col-md-12'>
     <div class="stage" >
       <div style='left:-250px; position:fixed' ng-show="banner" class="fade-in-out" >    
@@ -137,7 +138,7 @@
             <div id="canvasDiv"></div>
         </div>
         <div class="modal-footer">          
-            <button class="btn btn-primary hvr-grow" onclick='postCanvasToFacebook();'>Compartir  <span class="icon-UPload share_icon"></span></button>
+            <button class="btn btn-primary hvr-grow" ng-click='ok();'>Compartir  <span class="icon-UPload share_icon"></span></button>
             <button class="btn btn-warning hvr-grow" ng-click="cancel()" >Volver</button>
         </div>
     </script>
@@ -152,6 +153,22 @@
         </div>
         <div class="modal-footer footer-dialog">          
             <button class="btn btn-primary hvr-grow" ng-click="ok()">Aceptar</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="modal_dialog_ask.html">
+        <div class="modal-body body-dialog">
+          <div class="modal-dialog">
+           <h1 class='h1_dialog'>
+              Antes de Compartir, Ingresa un Mensaje Para tu Post
+              </h1>
+              <input class='special_input_dialog' type="text" name="input" ng-model="post_text"
+              required ng-trim="true" />    
+           </div>
+        </div>
+        <div class="modal-footer footer-dialog">     
+         <button class="btn btn-primary hvr-grow" ng-click='ok()'>Publicar</button>    
+         <button class="btn btn-primary hvr-grow" ng-click="cancel()">Cancelar</button>
         </div>
     </script>
 
@@ -181,8 +198,8 @@
     //FB.Event.subscribe('auth.authResponseChange', onAuthResponseChange);
     FB.Event.subscribe('auth.statusChange', onStatusChange);  
     //for local testing propouse    
-    //var response={status:'connected',authResponse:{accessToken:'ABC'}};
-    //loginCallback(response);
+    //var response={status:'connected',authResponse:{accessToken:'ABC',userID:'me'}};
+    //onStatusChange(response);
 
      $("#cf7_controls").on('click', 'img', function() {
         $("#cf7 img").removeClass("opaque");
@@ -199,6 +216,9 @@
   })( jQuery );
 
    </script>
+
+</div>
+
 
 </div>
 

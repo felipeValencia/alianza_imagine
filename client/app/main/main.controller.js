@@ -112,6 +112,11 @@ angular.module('alianzaImagineApp')
       //this.make=true;      
       //Genero canvas
     };
+
+    $scope.fill_vars = function(token,id){
+      $scope.token = token;
+      $scope.id = id;
+    };
  
  
   $scope.open = function () {
@@ -122,6 +127,7 @@ angular.module('alianzaImagineApp')
         controller: 'ModalInstanceCtrl',
         windowClass: 'mi_modal',    
         size:'lg',   
+        scope: $scope,
         resolve: {
           datos: function () {
             return $scope.datos;
@@ -134,32 +140,12 @@ angular.module('alianzaImagineApp')
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
-    };
-
-   $scope.open_dialog = function (texto,ico) {     
-      var modalDialog = $modal.open({
-        animation: true,
-        templateUrl: 'modal_dialog.html',
-        controller: 'ModalDialogCtrl',
-        windowClass: 'mi_modal_dialog',          
-        resolve: {
-          datos: function () {
-            return {'texto':texto,'ico':ico};
-          }
-        }
-      });
-
-      modalDialog.result.then(function () {
-        //$scope.selected = selectedItem;
-      }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-      });
-    };
+    }; 
 
 });
 
 
-angular.module('alianzaImagineApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance, datos) {
+angular.module('alianzaImagineApp').controller('ModalInstanceCtrl', function ($scope, $modalInstance, $modal, datos) {
 
 
   console.log(datos.imagen+' '+datos.texto+'  '+datos.color);
@@ -194,8 +180,151 @@ angular.module('alianzaImagineApp').controller('ModalInstanceCtrl', function ($s
     };
   };
 
-  $scope.ok = function () {
-    $modalInstance.close();
+
+  $scope.dataURItoBlob = function (dataURI) {
+        var byteString = atob(dataURI.split(',')[1]);
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], {
+            type: 'image/png'
+        });
+    }  
+
+  $scope.open_dialog = function (texto,ico) {     
+    var modalDialog = $modal.open({
+      animation: true,
+      templateUrl: 'modal_dialog.html',
+      controller: 'ModalDialogCtrl',
+      windowClass: 'mi_modal_dialog',          
+      resolve: {
+        datos: function () {
+          return {'texto':texto,'ico':ico};
+        }
+      }
+    });
+
+    modalDialog.result.then(function () {
+      //$scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+  $scope.ok = function () {   
+
+     FB.api('/'+$scope.id+'/permissions/publish_actions', function(resp) {
+        console.log('Idsio:'+$scope.id);
+        console.log("Response Permissions");
+        console.log(resp);
+        //var soloLocal=0;
+           // if(soloLocal==1){
+            if (resp.data.length <= 0 || resp.data[0].status === "declined") {                
+                $scope.open_dialog('Lo Sentimos, para Compartir Primero Debes Aceptar Los Permisos de Publicacion','glyphicon-thumbs-down');
+                 FB.login(function(response) {
+                     console.log("Tercer Logeeo");
+                     }, {
+                       scope: 'publish_actions', 
+                       return_scopes: true
+                     });
+
+            } else {                   
+                /*Pregunto el mensaje del post y lo publico*/
+                var modalDialogAsk = $modal.open({
+                  animation: true,
+                  templateUrl: 'modal_dialog_ask.html',
+                  controller: 'ModalDialogAskCtrl',
+                  windowClass: 'mi_modal_dialog_ask'  
+                });
+
+                modalDialogAsk.result.then(function (text) {  
+
+                  console.log('El tipo acepto y su texto fue: '+text); //Hago el post a facebook
+
+                  /*var canvas = document.getElementById('tempCanvas');               
+                  var data = canvas.toDataURL("image/jpeg", 1);
+                  var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
+                  var decodedPng = Base64Binary.decode(encodedPng);*/
+
+                   var canvas = document.getElementById("tempCanvas");
+                   var imageData = canvas.toDataURL("image/png");
+                   var blob;
+                    try {
+                        blob = $scope.dataURItoBlob(imageData);
+                    } catch (e) {
+                        console.log(e);
+                    }  
+
+                //  postImageToFacebook(token, "reconexion2015", "image/jpeg", decodedPng, customMessage);
+            
+                  //var boundary = '----ThisIsTheBoundary1234567890';
+                  //var formData = '--' + boundary + '\r\n'
+                  /*formData += 'Content-Disposition: form-data; name="source"; filename="' + "reconexion2015" + '"\r\n';
+                  formData += 'Content-Type: ' + "image/jpeg" + '\r\n\r\n';
+                  for ( var i = 0; i < decodedPng.length; ++i ){
+                      formData += String.fromCharCode( decodedPng[ i ] & 0xff );
+                  }
+
+                  formData += '\r\n';
+                  formData += '--' + boundary + '\r\n';
+                  formData += 'Content-Disposition: form-data; name="message"\r\n\r\n';
+                  formData += text + '\r\n'
+                  formData += '--' + boundary + '--\r\n';*/
+
+                  //Ajax
+                  
+                  /*var xhr = new XMLHttpRequest();
+                  xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + $scope.token, true );
+                  xhr.onload = xhr.onerror = function() {
+                      console.log( xhr.responseText );
+                  };
+                  xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
+                  xhr.sendAsBinary( formData );*/
+
+                  /*var req = {
+                     method: 'POST',
+                     url: 'https://graph.facebook.com/'+$scope.id+'/photos?access_token=' + $scope.token,
+                     headers: {
+                       'Content-Type':  "multipart/form-data; boundary=" + boundary 
+                     },
+                     data: { test: formData }
+                    }
+                    $http(req).success(function(){...}).error(function(){...});*/
+
+
+                    var data = new FormData();
+                        data.append("access_token",$scope.token);
+                        data.append("source", blob);
+                        data.append("message",text);
+                        try{
+                          $.ajax({
+                              url:'https://graph.facebook.com/'+$scope.id+'/photos?access_token=' + $scope.token,
+                              type:"POST",
+                              data:data,
+                              processData:false,
+                              contentType:false,
+                              cache:false,
+                              success:function(res){
+                                  console.log("success " + res);
+                                   $scope.open_dialog('!Exito al Compartir Tu Imagen de ReConexion 2015! Vistia tu Perfil','glyphicon-thumbs-up');
+                              },
+                              error:function(shr,status,res){
+                                  console.log("Error " + res + " Status " + shr.status);
+                                   $scope.open_dialog('Lo Sentimos, Ocurrio un Error Al Enviar la Imagen','glyphicon-thumbs-down');
+                              }
+                          });
+                        }catch(e){
+                          console.log(e);
+                        }      
+
+                }, function () {
+                  console.log('Modal dismissed at: ' + new Date());
+                });
+            }
+        });         
+
   };
 
   $scope.cancel = function () {
@@ -214,3 +343,19 @@ angular.module('alianzaImagineApp').controller('ModalDialogCtrl', function ($sco
   };
 
 });
+
+
+angular.module('alianzaImagineApp').controller('ModalDialogAskCtrl', function ($scope, $modalInstance) {
+
+  $scope.post_text;
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.post_text);
+  };
+
+   $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+
+});
+

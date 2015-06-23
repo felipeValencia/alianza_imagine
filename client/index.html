@@ -39,19 +39,19 @@
     <!-- Add your site or application content here -->
     <div ui-view=""></div>
     <script>
-     if ( XMLHttpRequest.prototype.sendAsBinary === undefined ) {
+     /*if ( XMLHttpRequest.prototype.sendAsBinary === undefined ) {
                   XMLHttpRequest.prototype.sendAsBinary = function(string) {
                       var bytes = Array.prototype.map.call(string, function(c) {
                           return c.charCodeAt(0) & 0xff;
                       });
                       this.send(new Uint8Array(bytes).buffer);
                   };
-              };
+              };*/
 
-       var Base64Binary = {
+      /* var Base64Binary = {
                 _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",                
                 /* will return a  Uint8Array type */
-                decodeArrayBuffer: function(input) {
+              /*  decodeArrayBuffer: function(input) {
                   var bytes = (input.length/4) * 3;
                   var ab = new ArrayBuffer(bytes);
                   this.decode(input, ab);
@@ -99,21 +99,17 @@
                 
                   return uarray;  
                 }
-              }
+              }*/
 
-        function postCanvasToFacebook() {           
-              
-          var canvas = document.getElementById('tempCanvas');
-          //var data = canvas.toDataURL("image/png");
-          var data = canvas.toDataURL("image/jpeg", 1);
-          var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
-          var decodedPng = Base64Binary.decode(encodedPng);  
+        /*function postCanvasToFacebook() {           
 
           FB.api('/'+id+'/permissions/publish_actions', function(resp) {
             console.log('Id:'+id);
             console.log("Response Permissions");
             console.log(resp);
-                if (resp.data[0].status === "declined") {
+            var soloLocal=0;
+                if(soloLocal==1){
+                //if (respo.data[0].status === "declined") {
                     (function( $ ){$(document).ready(function(){   
                        angular.element('#abc').scope().open_dialog('Lo Sentimos, para Compartir Primero Debes Aceptar Los Permisos de Publicacion','glyphicon-thumbs-down');
                        angular.element('#abc').scope().$apply();  
@@ -125,14 +121,26 @@
                            return_scopes: true
                          });
 
-                } else {
-                   postImageToFacebook(token, "reconexion2015", "image/jpeg", decodedPng, "Yo ya cree mi propia #ReDefinicion de #Reconexion, Que esperas para crear la tuya? Usa tu imaginacion y juntos intensifiquemos el mensaje de verdad.");
-                   angular.element('#abc').scope().open_dialog('!Exito al Compartir Tu Imagen de ReConexion 2015! Vistia tu Perfil','glyphicon-thumbs-up');
+                } else {                   
+                   /*angular.element('#abc').scope().open_dialog('!Exito al Compartir Tu Imagen de ReConexion 2015! Vistia tu Perfil','glyphicon-thumbs-up');
+                   angular.element('#abc').scope().$apply();*/
+                 /*  angular.element('#abc').scope().open_dialog_ask();
                    angular.element('#abc').scope().$apply();
                 }
             });    
 
-        };
+        }*/
+
+        /*function post(customMessage){
+          alert('Fui Convocado, Jajajaja');
+          var canvas = document.getElementById('tempCanvas');
+          //var data = canvas.toDataURL("image/png");
+          var data = canvas.toDataURL("image/jpeg", 1);
+          var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
+          var decodedPng = Base64Binary.decode(encodedPng);  
+
+          postImageToFacebook(token, "reconexion2015", "image/jpeg", decodedPng, customMessage);
+        } 
 
         function postImageToFacebook( authToken, filename, mimeType, imageData, message ){
             // this is the multipart/form-data boundary we'll use
@@ -158,7 +166,7 @@
             };
             xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
             xhr.sendAsBinary( formData );
-        };
+        };*/
     </script>      
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -180,7 +188,26 @@
       <script src="bower_components/angular-audio/app/angular.audio.js"></script>
       <script src="bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.js"></script>
       <!-- endbower -->
+    <!-- endbuild -->    
+    <!-- build:js({.tmp,client}) app/app.js -->
+    <script src="app/app.js"></script>
+      <!-- injector:js -->
+      <script src="app/account/account.js"></script>
+      <script src="app/account/login/login.controller.js"></script>
+      <script src="app/account/settings/settings.controller.js"></script>
+      <script src="app/account/signup/signup.controller.js"></script>
+      <script src="app/admin/admin.controller.js"></script>
+      <script src="app/admin/admin.js"></script>
+      <script src="app/main/main.controller.js"></script>
+      <script src="app/main/main.js"></script>
+      <script src="components/auth/auth.service.js"></script>
+      <script src="components/auth/user.service.js"></script>
+      <script src="components/modal/modal.service.js"></script>
+      <script src="components/mongoose-error/mongoose-error.directive.js"></script>
+      <script src="components/navbar/navbar.controller.js"></script>
+      <!-- endinjector -->
     <!-- endbuild -->
+
     <script>  
      var token; 
      var id;   
@@ -193,12 +220,12 @@
           console.log('loginCallback',response);
           if(response.status != 'connected') {
             top.location.href = 'https://www.facebook.com/appcenter/YOUR_APP_NAMESPACE';
-          }else{
+          }/*else{
             token=response.authResponse.accessToken;
-            id=response.authResponse.userID;
+            id=response.authResponse.userID;            
             console.log('loginCallback If Cubo');            
             iniciarCubo();          
-          }
+          }*/
         }
         function onStatusChange(response) {
           console.log('onStatusChange',response);
@@ -206,7 +233,7 @@
             login(loginCallback);
           } else {
             token=response.authResponse.accessToken;
-            id=response.authResponse.userID;
+            id=response.authResponse.userID;           
             console.log('onStatusChange If Cubo');
             iniciarCubo();           
           }
@@ -375,13 +402,16 @@
               "dimensions" : { "width": 331, "height":331 }
             }
           };     
-                console.log('Cubo Iniciando... Paso 2');
-                 (function( $ ){$(document).ready(function(){   
+              
+                /* (function( $ ){$(document).ready(function(){   
                     window.onload = function(){
-                      angular.element('#abc').scope().inicioSound();
-                      angular.element('#abc').scope().$apply(); 
+                      angular.element('#contro').scope().inicioSound();
+                      angular.element('#contro').scope().fill_vars(token,id);
+                      angular.element('#contro').scope().$apply(); 
                      }                     
-                 });})( jQuery );
+                 });})( jQuery );*/
+            
+               
                
                 $('#abc').show();    
 
@@ -452,15 +482,16 @@
                        $("#inicial_buttons").fadeIn();
 
                       angular.element('#abc').scope().initialShow();
+                      angular.element('#abc').scope().fill_vars(token,id);
                       angular.element('#abc').scope().$apply();  
 
 
-                      FB.login(function(response) {
+                      /*FB.login(function(response) {
                            console.log("Segundo Logeeo");
                            }, {
                              scope: 'publish_actions', 
                              return_scopes: true
-                           });
+                           });*/
                     //  }, 1000);                 
                   }
                 });
@@ -468,23 +499,5 @@
                $('#bottom').lazylinepainter(state); 
           }
   </script>
-    <!-- build:js({.tmp,client}) app/app.js -->
-    <script src="app/app.js"></script>
-      <!-- injector:js -->
-      <script src="app/account/account.js"></script>
-      <script src="app/account/login/login.controller.js"></script>
-      <script src="app/account/settings/settings.controller.js"></script>
-      <script src="app/account/signup/signup.controller.js"></script>
-      <script src="app/admin/admin.controller.js"></script>
-      <script src="app/admin/admin.js"></script>
-      <script src="app/main/main.controller.js"></script>
-      <script src="app/main/main.js"></script>
-      <script src="components/auth/auth.service.js"></script>
-      <script src="components/auth/user.service.js"></script>
-      <script src="components/modal/modal.service.js"></script>
-      <script src="components/mongoose-error/mongoose-error.directive.js"></script>
-      <script src="components/navbar/navbar.controller.js"></script>
-      <!-- endinjector -->
-    <!-- endbuild -->
 </body>
 </html>
